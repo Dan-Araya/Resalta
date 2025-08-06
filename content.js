@@ -1,8 +1,8 @@
 let selectedText = "";
 let selectedRange = null;
 
-/**/
-document.addEventListener('selectionchange', () => {
+/*HERE GOES THE DOCSTRINGS*/
+document.addEventListener("selectionchange", () => {
     const selection = window.getSelection();
     if (selection && selection.rangeCount > 0) {
         const text = selection.toString().trim();
@@ -13,9 +13,15 @@ document.addEventListener('selectionchange', () => {
     }
 });
 
-document.addEventListener('mouseup', () => {
+document.addEventListener("mouseup", () => {
     if (selectedText && selectedRange) {
         console.log("[Resalta] Texto final seleccionado:", selectedText);
-        // Aquí después iría: wrapWithHighlight(selectedRange)
+        wrapWithHighlight(selectedRange);
     }
 })
+
+function wrapWithHighlight(selectedRange) {
+    const span = document.createElement("span");
+    span.classList.add("yellow-highlight");
+    selectedRange.surroundContents(span);
+}
