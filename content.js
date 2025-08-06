@@ -1,18 +1,21 @@
-let selectedText = ""
+let selectedText = "";
+let selectedRange = null;
 
+/**/
 document.addEventListener('selectionchange', () => {
-    let text = window.getSelection().toString().trim();
-    if (!text) {
-        console.log("no selection");
+    const selection = window.getSelection();
+    if (selection && selection.rangeCount > 0) {
+        const text = selection.toString().trim();
+        if (text.length > 0) {
+            selectedText = text;
+            selectedRange = selection.getRangeAt(0).cloneRange();
+        }
     }
-    selectedText = text;
-})
+});
 
 document.addEventListener('mouseup', () => {
-    if (selectedText.length > 0) {
-        console.log(selectedText);
-    }
-    else {
-        console.log("no selection");
+    if (selectedText && selectedRange) {
+        console.log("[Resalta] Texto final seleccionado:", selectedText);
+        // Aquí después iría: wrapWithHighlight(selectedRange)
     }
 })
